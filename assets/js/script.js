@@ -2,6 +2,31 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 
+var blocks = $(".time-block");
+var currentHour;
+
+const clock = setInterval(() => {
+  $("#currentDay").text(dayjs().format("MMMM D YYYY, h:mm:ss a"));
+  currentHour = parseInt(dayjs().format("H"));
+  $(function () {
+    for (let i = 0; i < blocks.length; i++) {
+      var tempBlock = $(blocks[i]);
+      var tempBlockHour = parseInt(tempBlock.attr("id"));
+      if (tempBlockHour < currentHour) {
+        tempBlock.addClass("past");
+      } else if (tempBlockHour === currentHour) {
+        tempBlock.addClass("present");
+      } else {
+        tempBlock.addClass("future");
+      }
+      
+
+
+    }
+  });
+}, 1000);
+
+
 $(function () {
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
